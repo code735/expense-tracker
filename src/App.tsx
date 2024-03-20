@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './Components/Header.tsx'
-import ActionWindow from './Components/ActionWindow.tsx'
+import Header from './Components/Header'
+import ActionWindow from './Components/ActionWindow'
 
 export default function App() {
   return (
