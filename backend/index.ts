@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
+import { signupRoute } from './routes/signUp';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -20,6 +21,9 @@ mongoose.connect(mongoURI, {
 app.get('/', (req: Request, res: Response) => {
   res.send("hi");
 });
+
+// signup route
+app.use(signupRoute);
 
 const PORT: string | number = process.env.BACKEND_PORT || 3000;
 

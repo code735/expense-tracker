@@ -1,4 +1,4 @@
-import mongoose, { Model } from "mongoose";
-import { IUser, userSchema } from "../schema/userSchema";
+import mongoose from "mongoose";
+import { userSchema } from "../schema/userSchema";
 
-const userModel: Model<IUser> = mongoose.model<IUser>("User",userSchema)
+export const User = mongoose.model('User', userSchema);
