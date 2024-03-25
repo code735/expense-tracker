@@ -1,7 +1,10 @@
 import React from 'react'
+import PaymentEntry from './PaymentEntry'
 
 export default function ActionWindow() {
   return (
-    <div>ActionWindow</div>
+    <div>
+      <PaymentEntry/>
+    </div>
   )
 }
