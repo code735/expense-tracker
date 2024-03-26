@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@canvasjs/charts": "^3.7.45",
+    "@canvasjs/react-charts": "^1.0.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.14",
@@ -11,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bcrypt": "^5.1.1",
+    "canvasjs": "^1.8.3",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",

@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import ActionWindow from './Components/ActionWindow';
 import SignUp from './Components/Signup';
 import SignIn from './Components/SignIn';
+import PaymentEntry from './Components/PaymentEntry';
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/new-entry" element={<PaymentEntry />} />
           <Route path="/" element={<ActionWindow />} />
         </Routes>
       </div>
