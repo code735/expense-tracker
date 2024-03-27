@@ -11,7 +11,7 @@ export default function Charts() {
         exportEnabled: true,
         theme: "light2",
         title:{
-            text: "expense tracker sample data"
+            text: ""
         },
         axisY: {
             includeZero: true
