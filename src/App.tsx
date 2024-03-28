@@ -5,6 +5,7 @@ import ActionWindow from './Components/ActionWindow';
 import SignUp from './Components/Signup';
 import SignIn from './Components/SignIn';
 import PaymentEntry from './Components/PaymentEntry';
+import './Components/styles/main.scss'
 
 export default function App() {
   return (

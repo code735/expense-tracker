@@ -1,0 +1,5 @@
+@import './font.scss';
+
+.signup-container {
+  & { font-family: $handwriting !important; }
+}
