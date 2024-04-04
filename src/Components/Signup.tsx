@@ -15,35 +15,13 @@ export default function SignUp() {
 
   return (
     <div className="signup-container">
-      <form onSubmit={handleSubmit}>
-        <button type="submit" className='signup-btn'>
+      <form onSubmit={handleSubmit} className='signup-form'>
+        <button type="submit" className='google-signin signup-element'>
+          Sign in with google
         </button>
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-        </Grid>
-        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
-            Sign Up
-        </Button>
+        <input type="text" placeholder='username ' className='signup-element' />
+        <input type="text" placeholder='password' className='signup-element' />
+        <button type="submit" className='signup-btn signup-element'>Sign Up</button>
       </form>
     </div>
   );

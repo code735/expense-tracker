@@ -10,14 +10,16 @@ import './Components/styles/main.scss'
 export default function App() {
   return (
     <Router>
-      <div className='main'>
-        <Header />
-        <Routes>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/new-entry" element={<PaymentEntry />} />
-          <Route path="/" element={<ActionWindow />} />
-        </Routes>
+      <div className="main">
+        <div className='app-container'>
+          <Header />
+          <Routes>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/new-entry" element={<PaymentEntry />} />
+            <Route path="/" element={<ActionWindow />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );

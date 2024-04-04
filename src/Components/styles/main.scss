@@ -1,4 +1,13 @@
 @import './signup.scss';
+@import './Header.scss';
+
 @import './font.scss';
 
 * { padding: 0; margin: 0; font-family: $handwriting; font-weight: 500; }
+
+.main {
+  & { height: 100vh; display: flex; justify-content: center; align-items: center; }
+  .app-container {
+    & { height: 95vh; max-width: 900px; margin: auto; width: 95%; border: 5px solid #c2255c; box-sizing: border-box; border-radius: 20px; }
+  }
+}
