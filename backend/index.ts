@@ -28,7 +28,7 @@ app.use(signupRoute);
 const PORT: string | number = process.env.BACKEND_PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}/`);
 });
 
 export default app;

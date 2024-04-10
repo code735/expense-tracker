@@ -10,7 +10,6 @@ app.use(express.json());
 
 const signupZodSchema = object({
   username: string(),
-  email: string().email(),
   password: string().min(8)
 })
 
@@ -18,9 +17,9 @@ const signupZodSchema = object({
 export const signupRoute = app.post('/signup', async (req: Request, res: Response) => {
   
   try {
-    const { username, email, password } = signupZodSchema.parse(req.body);
+    const { username, password } = signupZodSchema.parse(req.body);
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ username });
 
     if ( existingUser ) {
       return res.status(400).json({ message: "User already exist" })
@@ -29,7 +28,7 @@ export const signupRoute = app.post('/signup', async (req: Request, res: Respons
 
     const hashedPassword = await bcrypt.hash( password, 10 )
 
-    const newUser = new User({ username, email, password: hashedPassword })
+    const newUser = new User({ username, password: hashedPassword })
     await newUser.save();
 
     res.status(200).json({ message: "User created successfully"})
