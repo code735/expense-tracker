@@ -33,7 +33,7 @@ export default function SignUp() {
         return;
       }
   
-      const response = await fetch(process.env.REACT_APP_LOCAL + `/signup`, {
+      const response = await fetch(process.env.REACT_APP_API + `/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,11 +61,18 @@ export default function SignUp() {
         }
       }
 
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000);
+
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage("An error occurred. Please try again later.");
-      setLoading(false)
+      
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000);
+      
     }
   };
     
