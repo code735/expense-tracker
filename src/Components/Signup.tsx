@@ -61,18 +61,12 @@ export default function SignUp() {
         }
       }
 
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000);
-
+      setLoading(false)
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage("An error occurred. Please try again later.");
       
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000);
-      
+      setLoading(false)
     }
   };
     
