@@ -1,17 +1,18 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import path from 'path';
 import { signupRoute } from './routes/signUp';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
+app.use(cors());
+
 const mongoURI: string = process.env.MONGO_URI || '';
 
 mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
 } as mongoose.ConnectOptions).then(() => {
   console.log('Connected to MongoDB');
 }).catch((error: any) => {
