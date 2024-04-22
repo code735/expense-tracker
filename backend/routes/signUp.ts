@@ -37,8 +37,8 @@ export const signupRoute = app.post('/signup', async (req: Request, res: Respons
       status: "success",
       message: "User created successfully"
     })
+
   } catch (error: any) {
     res.status(500).json({ message: error})
   }
-
 });
