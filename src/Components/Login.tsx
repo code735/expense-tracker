@@ -4,6 +4,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CircularProgress } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 
@@ -12,8 +13,12 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("")
   const [loading, setLoading] = useState(false)
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setLoading(true)
     fetch(process.env.REACT_APP_API + '/signin', {
       method: 'POST',
       headers: {
@@ -24,9 +29,18 @@ export default function Login() {
         password
       }),
     })
-    .then(async(res) => {
+    .then(async(res:any) => {
       const data = await res.json();
-      
+        if ( data.status === 'success' ) {
+          setLoading(false)
+          navigate('/');
+          localStorage.setItem("token",data?.token)
+        }
+        else if ( data.status === 'error' ) {
+          setLoading(false)
+          setErrorMessage(data.message);
+          localStorage.setItem("token","")
+        }
     })
   };
 
@@ -36,11 +50,9 @@ export default function Login() {
         <div className="form-content">
           <input type="text" placeholder='username' className='signin-element' value={username} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(event.target.value);
-            setErrorMessage("");
           }} />
           <input type="password" placeholder='password' className='signin-element' value={password} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
-            setErrorMessage("");
           }} />
           <button type="submit" className='signin-btn signin-element'>
             {

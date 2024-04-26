@@ -51,7 +51,7 @@ exports.signinRoute = app.post('/signin', (req, res) => __awaiter(void 0, void 0
                 }
                 else {
                     return res.status(401).json({
-                        status: "fail",
+                        status: "error",
                         message: "Username/password incorrect"
                     });
                 }

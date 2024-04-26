@@ -52,7 +52,7 @@ export const signinRoute = app.post('/signin', async (req: Request, res: Respons
         }
         else {
           return res.status(401).json({
-            status: "fail",
+            status: "error",
             message: "Username/password incorrect"
           })
         }
