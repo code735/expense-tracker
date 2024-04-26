@@ -1,124 +1,52 @@
-import { CircularProgress } from '@mui/material';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CircularProgress } from '@mui/material';
 
-export default function SignUp() {
+export default function Login() {
 
-  const [username, setUsername]             = useState("");
-  const [password, setPassword]             = useState("");
-  const [signupDisabled, setSignupDisabled] = useState(true);
-  const [errorMessage, setErrorMessage]     = useState("");
-  const [loading, setLoading]               = useState(false)
-  const [alreadyExist, setAlreadyExist]     = useState(false)
-
-  const navigate = useNavigate();
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    setLoading(true)
-  
-    const payload = {
-      username,
-      password,
-    };
-  
-    console.log('payload', payload);
-  
-    try {
-      if (username === "" || password === "") {
-        setErrorMessage("Please enter both username and password.");
-        return;
-      }
-  
-      if (password.length < 8) {
-        setErrorMessage("Password must be at least 8 characters long.");
-        return;
-      }
-  
-      const response = await fetch(process.env.REACT_APP_API + `/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-  
-      if (!response.ok) {
-        if (response.status === 400) {
-          setErrorMessage("Bad request. Please check your input.");
-        } else if (response.status === 401) {
-          setErrorMessage("User already exists.");
-          setAlreadyExist(true)
-        } else {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-      } else {
-        const data = await response.json();
-  
-        if (data.status === 'success') {
-          console.log('Success:', data);
-          setErrorMessage("");
-        } else {
-          console.log('Error:', data);
-          setErrorMessage(data.message);
-        }
-      }
-
-      setLoading(false)
-    } catch (error) {
-      console.error('Error:', error);
-      setErrorMessage("An error occurred. Please try again later.");
+    fetch(process.env.REACT_APP_API + '/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password
+      }),
+    })
+    .then(async(res) => {
+      const data = await res.json();
       
-      setLoading(false)
-    }
+    })
   };
-    
-
-  useEffect(() => {
-    if (username && password) {
-      setSignupDisabled(false);
-    } else {
-      setSignupDisabled(true);
-    }
-  }, [username, password]);
-
-  useEffect(() => {
-     
-    if ( alreadyExist ) {
-      alert("User already exist redirecting on login page")
-      navigate("/login")
-    }
-
-    setTimeout(() => {
-      setAlreadyExist(false)
-    }, 1000);
-
-  }, [alreadyExist])
-  
 
   return (
-    <div className="signup-container">
-      <form onSubmit={handleSubmit} className='signup-form'>
+    <div className="signin-container">
+      <form onSubmit={handleSubmit} className='signin-form'>
         <div className="form-content">
-          <button type="submit" className='google-signin signup-element'>
-            Sign in with google
-          </button>
-          <input type="text" placeholder='username' className='signup-element' value={username} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          <input type="text" placeholder='username' className='signin-element' value={username} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setUsername(event.target.value);
             setErrorMessage("");
           }} />
-          <input type="password" placeholder='password' className='signup-element' value={password} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          <input type="password" placeholder='password' className='signin-element' value={password} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value);
             setErrorMessage("");
           }} />
-          <button type="submit" style={{ color: signupDisabled ? "#b4b4b4" : "#000" }} disabled={signupDisabled} className='signup-btn signup-element'>
+          <button type="submit" className='signin-btn signin-element'>
             {
-              loading ? <CircularProgress size={30} /> : <p>Register</p>
+              loading ? <CircularProgress size={30} /> : <p>Login</p>
             }
           </button>
-          <a className="login-link" href='/login'>Login</a>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
         <div className="wave-patterns">

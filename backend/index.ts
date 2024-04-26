@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import { signupRoute } from './routes/signUp';
+import { signinRoute } from './routes/SignIn';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -26,6 +27,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // signup route
 app.use(signupRoute);
+app.use(signinRoute);
 
 const PORT: string | number = process.env.BACKEND_PORT || 3000;
 
