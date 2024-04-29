@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../store/AuthContext';
 
 export default function Login() {
 
@@ -12,6 +13,8 @@ export default function Login() {
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const [loading, setLoading] = useState(false)
+
+  const { login } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -34,6 +37,7 @@ export default function Login() {
         if ( data.status === 'success' ) {
           setLoading(false)
           navigate('/');
+          login();
           localStorage.setItem("token",data?.token)
         }
         else if ( data.status === 'error' ) {

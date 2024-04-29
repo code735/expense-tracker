@@ -1,22 +1,23 @@
-import React, { Component, ReactElement } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { Component, ReactElement, useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './Components/Header';
 import ActionWindow from './Components/ActionWindow';
 import SignUp from './Components/Signup';
 import Login from './Components/Login';
 import PaymentEntry from './Components/PaymentEntry';
 import './Components/styles/main.scss';
+import { AuthContext } from './store/AuthContext';
 
 export default function App() {
 
-  const isAuth = 
+  const { isAuthenticated } = useContext(AuthContext);
 
   const getNormalRoute = (route: string, component: ReactElement) => {
     return <Route path={`/${route}`} element={component} />;
   }
 
   const getProtectedRoute = (route: string, component: ReactElement) => {
-    return <Route path={`/${route}`} element={component} />;
+    return <Route path={`/${route}`} element={ isAuthenticated ? component : <Navigate to='/login' /> } />;
   }
 
   return (
@@ -30,7 +31,7 @@ export default function App() {
             {getNormalRoute("signin", <Login />)}
             {getNormalRoute("login", <Login />)}
             {getNormalRoute("new-entry", <PaymentEntry />)}
-            {getNormalRoute("", <ActionWindow />)}
+            {getProtectedRoute("", <ActionWindow />)}
           </Routes>
         </div>
       </div>
