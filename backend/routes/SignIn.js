@@ -32,21 +32,12 @@ exports.signinRoute = app.post('/signin', (req, res) => __awaiter(void 0, void 0
         if (existingUser !== null) {
             bcrypt_1.default.compare(password, existingUser.password).then((result) => {
                 if (result) {
-                    jsonwebtoken_1.default.sign(JSON.stringify(existingUser), JWT_SECRET, (err, token) => {
-                        if (token) {
-                            return res.status(200).json({
-                                status: "success",
-                                token,
-                                message: "User Signed in"
-                            });
-                        }
-                        else {
-                            return res.status(500).json({
-                                status: "Internal server error",
-                                token,
-                                message: "Token does not exist"
-                            });
-                        }
+                    const token = jsonwebtoken_1.default.sign({ userId: existingUser._id }, JWT_SECRET);
+                    res.json({
+                        token,
+                        status: 'success',
+                        id: existingUser._id,
+                        name: existingUser.username,
                     });
                 }
                 else {

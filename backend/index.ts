@@ -5,6 +5,7 @@ import cors from 'cors';
 import path from 'path';
 import { signupRoute } from './routes/signUp';
 import { signinRoute } from './routes/SignIn';
+import { verifyUser } from './auth';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -21,7 +22,7 @@ mongoose.connect(mongoURI, {
   console.error('Error connecting to MongoDB:', error);
 });
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', verifyUser, (req: Request, res: Response) => {
   res.send("hi");
 });
 

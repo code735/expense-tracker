@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { object, string } from 'zod';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { User } from '../model/userModel';
 import { Types, Document } from 'mongoose';
 
@@ -33,22 +33,13 @@ export const signinRoute = app.post('/signin', async (req: Request, res: Respons
     if ( existingUser !== null) {
       bcrypt.compare( password, existingUser.password).then( (result) => {
         if ( result ) {
-          jwt.sign(JSON.stringify(existingUser), JWT_SECRET, (err, token) => {
-            if ( token ) {
-              return res.status(200).json({
-                status: "success",
-                token,
-                message: "User Signed in"
-              })
-            }
-            else {
-              return res.status(500).json({
-                status: "Internal server error",
-                token,
-                message: "Token does not exist"
-              })
-            }
-          });          
+          const token = jwt.sign({ userId: existingUser._id }, JWT_SECRET);
+          res.json({
+            token,
+            status:'success',
+            id: existingUser._id,
+            name: existingUser.username,
+          });         
         }
         else {
           return res.status(401).json({

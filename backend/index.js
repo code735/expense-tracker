@@ -33,6 +33,7 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const signUp_1 = require("./routes/signUp");
 const SignIn_1 = require("./routes/SignIn");
+const auth_1 = require("./auth");
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../.env') });
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -43,7 +44,7 @@ mongoose_1.default.connect(mongoURI, {}).then(() => {
 }).catch((error) => {
     console.error('Error connecting to MongoDB:', error);
 });
-app.get('/', (req, res) => {
+app.get('/', auth_1.verifyUser, (req, res) => {
     res.send("hi");
 });
 // signup route
